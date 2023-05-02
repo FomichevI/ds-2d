@@ -35,18 +35,18 @@ public class PlayerInput : MonoBehaviour
         //поворот оружия в сторону позиции мыши
         if (CanMove)
         {
-            Vector3 diference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            Vector2 diference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             float rotateZ = Mathf.Atan2(diference.y, diference.x) * Mathf.Rad2Deg;            
-            PlayerController.S.RotateWeapon(new Vector3(0f, 0f, rotateZ));
+            PlayerController.S.RotateWeapon(new Vector3(diference.x, diference.y, rotateZ));
         }
-
-        //стрельба
-        if (Input.GetMouseButton(0))
-            PlayerController.S.Attack();
     }
 
     private void Update()
     {
+        //атака
+        if (Input.GetMouseButton(0))
+            PlayerController.S.Attack();
+
         //смена оружия
         if (Input.GetKeyDown(KeyCode.Alpha1))
             PlayerController.S.SetWeapon(0);
